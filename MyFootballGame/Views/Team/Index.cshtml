@@ -1,0 +1,122 @@
+﻿@model MyFootballGame.Other.Application.ViewModel.Team.ListTeamForListVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>AllTeams</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-action="Index" asp-controller="Team" method="post">
+    <div class="row">
+        <input type="text" asp-for="SearchString" name="searchString" id="searchString" />
+        <input type="submit" value="Wyszukaj: " style="background-color: white; color: blue"/>
+    </div>
+
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        LeagueId
+                    </th>
+                    <th>
+                        TeamSkill
+                    </th>
+                    <th>
+                        Wins
+                    </th>
+                    <th>
+                        Draws
+                    </th>
+                    <th>
+                        Losses
+                    </th>
+                    <th>
+                        Points
+                    </th>
+                    <th>
+                        Operations
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Teams)
+                {
+                                <tr>
+                                    <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                            @Html.DisplayFor(modelItem => item.LeagueId)
+                                    </td>
+                                     <td>
+                            @Html.DisplayFor(modelItem => item.TeamSkill)
+                                    </td>
+                                    <td>
+                            @Html.DisplayFor(modelItem => item.Wins)
+                                    </td>
+                                    <td>
+                            @Html.DisplayFor(modelItem => item.Draws)
+                                    </td>
+                                    <td>
+                            @Html.DisplayFor(modelItem => item.Losses)
+                                    </td>
+                                    <td>
+                            @Html.DisplayFor(modelItem => item.Points)
+                                    </td>
+                                    <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                    </td>
+                                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <table>
+            <tr>
+                @for (int i = 1; i <= Math.Ceiling(Model.Count / (double)Model.PageSize); i++)
+                {
+                                <td>
+                        @if (i != Model.CurrentPage)
+                        {
+                                                    <a href="javascript:PagerClick(@i)">@i</a>
+                        }
+                        else
+                        {
+                                                    <span>@i</span>
+                        }
+                                </td>
+                }
+            </tr>
+        </table>
+        <input type="hidden" name="pageNum" id="pageNum"/>
+        <input type="hidden" name="pageSize" id="pageSize" value="10"/>
+    </div>
+</form>
+
+@section Scripts
+{
+                <script type="text/javascript">
+                    function PagerClick(index)
+                    {
+                        document.getElementById("pageNum").value = index;
+                        document.forms[0].submit();
+                    }
+                </script>
+}

@@ -1,0 +1,56 @@
+﻿@model MyFootballGame.Other.Application.ViewModel.Season.ListSeasonForListVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>AllActiveSeasons</h1>
+
+<p>
+    <a asp-action="AddNewSeason">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                LeagueId
+            </th>
+            <th>
+                SeasonWinnerId
+            </th>
+            <th>
+				Operations
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Seasons) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeagueId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeasonWinnerId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
